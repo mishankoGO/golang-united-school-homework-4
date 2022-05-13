@@ -2,6 +2,7 @@ package string_sum
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -27,8 +28,8 @@ var (
 func StringSum(input string) (output string, err error) {
 
 	if len(input) == strings.Count(input, " ") {
-		//err := fmt.Errorf("bad token: %w", errorEmptyInput)
-		return "", nil
+		err = fmt.Errorf("bad token: %w", errorEmptyInput)
+		return "", err
 	}
 
 	input = strings.ReplaceAll(input, " ", "")
@@ -48,28 +49,28 @@ func StringSum(input string) (output string, err error) {
 
 	if len(numPlus) == 2 {
 		for _, elem := range numPlus {
-			op, err := strconv.Atoi(string(elem))
-			if err != nil {
-				//err = fmt.Errorf("bad token: %w", err)
-				return "", nil
+			op, e := strconv.Atoi(string(elem))
+			if e != nil {
+				err = fmt.Errorf("bad token: %w", e)
+				return "", err
 			}
 			operands = append(operands, op)
 		}
 		operands[0] *= flag
 	} else if len(numMinus) == 2 {
 		for _, elem := range numMinus {
-			op, err := strconv.Atoi(elem)
-			if err != nil {
-				//err = fmt.Errorf("bad token: %w", err)
-				return "", nil
+			op, e := strconv.Atoi(elem)
+			if e != nil {
+				err = fmt.Errorf("bad token: %w", e)
+				return "", err
 			}
 			operands = append(operands, op)
 		}
 		operands[0] *= flag
 		operands[1] *= -1
 	} else {
-		//err = fmt.Errorf("bad token: %w", errorNotTwoOperands)
-		return "", nil
+		err = fmt.Errorf("bad token: %w", errorNotTwoOperands)
+		return "", err
 	}
 	var sum int
 	for _, operand := range operands {
