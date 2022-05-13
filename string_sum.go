@@ -28,7 +28,7 @@ var (
 func StringSum(input string) (output string, err error) {
 
 	if len(input) == strings.Count(input, " ") {
-		err := fmt.Errorf("empty input: %w", errorEmptyInput)
+		err := fmt.Errorf("%w", errorEmptyInput)
 		return "", err
 	}
 
@@ -51,7 +51,7 @@ func StringSum(input string) (output string, err error) {
 		for _, elem := range numPlus {
 			op, err := strconv.Atoi(string(elem))
 			if err != nil {
-				err = fmt.Errorf("bad token: %w", err)
+				err = fmt.Errorf("%w", err)
 				return "", err
 			}
 			operands = append(operands, op)
@@ -61,7 +61,7 @@ func StringSum(input string) (output string, err error) {
 		for _, elem := range numMinus {
 			op, err := strconv.Atoi(elem)
 			if err != nil {
-				err = fmt.Errorf("bad token: %w", err)
+				err = fmt.Errorf("%w", err)
 				return "", err
 			}
 			operands = append(operands, op)
@@ -69,7 +69,7 @@ func StringSum(input string) (output string, err error) {
 		operands[0] *= flag
 		operands[1] *= -1
 	} else {
-		err = fmt.Errorf("bad operands: %w", errorNotTwoOperands)
+		err = fmt.Errorf("%w", errorNotTwoOperands)
 		return "", err
 	}
 	var sum int
