@@ -76,5 +76,6 @@ func StringSum(input string) (output string, err error) {
 	for _, operand := range operands {
 		sum += operand
 	}
-	return strconv.Itoa(sum), nil
+	output = strconv.Itoa(sum)
+	return output, nil
 }
