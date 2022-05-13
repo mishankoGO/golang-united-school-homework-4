@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-//use these errors as appropriate, wrapping them with fmt.Errorf function
+//use  these errors as appropriate, wrapping them with fmt.Errorf function
 var (
 	// Use when the input is empty, and input is considered empty if the string contains only whitespace
 	errorEmptyInput = errors.New("input is empty")
