@@ -28,8 +28,8 @@ var (
 func StringSum(input string) (output string, err error) {
 
 	if len(input) == strings.Count(input, " ") {
-		//err = fmt.Errorf("%w", errorEmptyInput)
-		return "", errorEmptyInput
+		err = fmt.Errorf("%w", errorEmptyInput)
+		return "", err
 	}
 
 	input = strings.ReplaceAll(input, " ", "")
@@ -69,8 +69,8 @@ func StringSum(input string) (output string, err error) {
 		operands[0] *= flag
 		operands[1] *= -1
 	} else {
-		//err = fmt.Errorf("bad token: %w", errorNotTwoOperands)
-		return "", errorNotTwoOperands
+		err = fmt.Errorf("bad token: %w", errorNotTwoOperands)
+		return "", err
 	}
 	var sum int
 	for _, operand := range operands {
