@@ -25,18 +25,17 @@ var (
 //
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
-func operandsParser(numbers []string) operands []int {
+func operandsParser(numbers []string, errMsg string, operands *[]int) (output string, err error) {
 	for _, elem := range numbers {
 		op, e := strconv.Atoi(string(elem))
 		if e != nil {
-			err = fmt.Errorf(errMsg, e)
+			err := fmt.Errorf(errMsg, e)
 			return "", err
 		}
-		operands = append(operands, op)
+		*operands = append(*operands, op)
 	}
-	return operands
+	return "", nil
 }
-
 
 func StringSum(input string) (output string, err error) {
 
@@ -44,12 +43,11 @@ func StringSum(input string) (output string, err error) {
 		err = fmt.Errorf("%w", errorEmptyInput)
 		return "", err
 	}
-	
+
 	var errMsg string = "bad token: %w"
 	var operands []int
 	var sum int
-	
-	
+
 	input = strings.ReplaceAll(input, " ", "")
 	flag := 1
 
@@ -57,15 +55,21 @@ func StringSum(input string) (output string, err error) {
 		flag *= -1
 	}
 
-	input := strings.TrimLeft(input, "-")
+	input = strings.TrimLeft(input, "-")
 	numPlus := strings.Split(input, "+")
 	numMinus := strings.Split(input, "-")
-	
+
 	if len(numPlus) == 2 {
-		operands = operandsParser(numPlus)
+		output, err = operandsParser(numPlus, errMsg, &operands)
+		if err != nil {
+			return output, err
+		}
 		operands[0] *= flag
 	} else if len(numMinus) == 2 {
-		operands = operandsParser(numPlus)
+		output, err = operandsParser(numMinus, errMsg, &operands)
+		if err != nil {
+			return output, err
+		}
 		operands[0] *= flag
 		operands[1] *= -1
 	} else {
@@ -77,6 +81,6 @@ func StringSum(input string) (output string, err error) {
 		sum += operand
 	}
 	output = strconv.Itoa(sum)
-	
+
 	return output, nil
 }
