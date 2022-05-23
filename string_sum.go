@@ -32,7 +32,7 @@ func operandsParser(numbers []string, errMsg string, operands *[]int) (output st
 			err := fmt.Errorf(errMsg, e)
 			return "", err
 		}
-		*operands = append(*operands, op)
+		operands = append(operands, op)
 	}
 	return "", nil
 }
